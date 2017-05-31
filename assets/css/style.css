@@ -1,0 +1,12 @@
+#gameBoard {
+	border: solid 5px black;
+}
+
+#button1,
+#button2,
+#button3,
+#button4,
+#submit {
+	font-size: 30px;
+	text-align: center;
+}
