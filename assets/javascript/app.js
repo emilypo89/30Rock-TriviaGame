@@ -1,15 +1,13 @@
-// window.onload = function() {
-
-
-// variable storing the setTimout function to begin the game
-var startGame;
-var questionsDisplayed = false;
-
+window.onload = function() {
 // on click timer starts
 // displays questions page
 $("#start").click(gameTimer.start);
 $("#submit").click(gameTimer.stop);
+};
 
+// variable storing the setTimout function to begin the game
+var startGame;
+var questionsDisplayed = false;
 
 var gameTimer = {
 
@@ -56,4 +54,4 @@ var gameTimer = {
   }
 
 
-// };
+};
