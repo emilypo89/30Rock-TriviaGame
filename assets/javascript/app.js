@@ -67,6 +67,15 @@ function run() {
   $("#button2").show();
   $("#button3").show();
   $("#button4").show();
+
+  displayCurrentQuestion();
+  // $("#question").html(questions[currentQuestion].question);
+
+  // $("button1").html(questions[currentQuestion].choices[0]);
+  // $("button2").html(questions[currentQuestion].choices[1]);
+  // $("button3").html(questions[currentQuestion].choices[2]);
+  // $("button4").html(questions[currentQuestion].choices[3]);
+
   // add here the first question added to id question and the answers within the buttons
 
 }
@@ -90,3 +99,19 @@ function stop() {
   // maybe have a restart function
     }
 
+function displayCurrentQuestion () {
+  var currentQuestion = questions[currentQuestion].question;
+  var numChoices = questions[currentQuestion].choices.length;
+
+  $("#question").html(currentQuestion);
+
+  var choice;
+  for (var i = 0; i < numChoices; i++) {
+    choice = questions[currentQuestion].choices[i];
+  }
+
+    $("button1").html(questions[currentQuestion].choices[0]);
+    $("button2").html(questions[currentQuestion].choices[1]);
+    $("button3").html(questions[currentQuestion].choices[2]);
+    $("button4").html(questions[currentQuestion].choices[3]);
+}
