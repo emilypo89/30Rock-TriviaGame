@@ -83,7 +83,6 @@ function decrement() {
   }
 }
 
-
 function stop() {
   clearInterval(startGame);
   $("#button1").hide();  
@@ -116,7 +115,12 @@ function displayCurrentQuestion () {
 if (userguess === questions[i].correctAnswer)
   if (questions[i].correctAnswer == choices[i]) {
     correctGuess++;
-    nextQuestion();
+    displayCurrentQuestion();
+    $("submit").click(run);
   }
+}
+
+if (questionCounter > 10) {
+  stop();
 }
 
