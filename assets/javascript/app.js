@@ -1,9 +1,10 @@
 // starts when page loads
 window.onload = function() {
-  $("#button1").click(run);
-  $("#button1").html("Push to Start the Game!")
+  $("#start").click(run);
+  $("#start").html("Push to Start the Game!")
   $("#submit").click(stop);
   $("#questionSheet").hide();
+  $("#button1").hide();
   $("#button2").hide();
   $("#button3").hide();
   $("#button4").hide();
@@ -67,6 +68,8 @@ var questions = [{
 // countdown functions
 function run() {
   startGame = setInterval(decrement, 1000);
+  $("#start").hide();
+  $("#button1").show();
   $("#button2").show();
   $("#button3").show();
   $("#button4").show();
@@ -110,17 +113,29 @@ function displayCurrentQuestion () {
 
 }
 
+  
+  var userInput = $(".btn btn-default").val();
+    if (userInput === questions[i].correctAnswer){
+      displayCurrentQuestion();
+      run();
+    }
+  // When using jQuery 3:
+  // var multipleValues = $( "#multiple" ).val();
+  console.log(userInput);
+// }
 
 
-if (userguess === questions[i].correctAnswer)
-  if (questions[i].correctAnswer == choices[i]) {
-    correctGuess++;
-    displayCurrentQuestion();
-    $("submit").click(run);
-  }
-}
 
-if (questionCounter > 10) {
-  stop();
-}
+
+// if (userguess === questions[i].correctAnswer)
+//   if (questions[i].correctAnswer == choices[i]) {
+//     correctGuess++;
+//     displayCurrentQuestion();
+//     $("submit").click(run);
+//   }
+// }
+
+// if (questionCounter > 10) {
+//   stop();
+// }
 
