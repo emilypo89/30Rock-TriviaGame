@@ -9,7 +9,13 @@ window.onload = function() {
   $("#button3").hide();
   $("#button4").hide();
 
+  $("#button1").click(buttonClicked);
+  $("#button2").click(buttonClicked);
+  $("#button3").click(buttonClicked);
+  $("#button4").click(buttonClicked);
+
 };
+
 
 // variables
 var number = 30;
@@ -25,44 +31,44 @@ var questionCounter = 0;
 
 var questions = [{
     question: "What does TGS stand for?",
-    choices: ["That Great Show", "The Girly Show", "The Green Show", "The Gray Shadow"],
-    correctAnswer: [1]
+    choices: ["That Great Show", "The Girlie Show", "The Green Show", "The Gray Shadow"],
+    correctAnswer: 1
 }, {
     question: "Who does Liz Lemon end up marrying?",
     choices: ["Criss Cross", "Dennis Duffy", "Carol, the Pilot", "Floyd"],
-    correctAnswer: [0]
+    correctAnswer: 0
 }, {
     question: "Who are the Stars of TGS?",
     choices: ["Frank and Toofer", "Kenneth and Pete", "Jenna Maroney and Tracy Morgan", "Jennifer Maroney and Tracy Jordon"],
-    correctAnswer: [2]
+    correctAnswer: 2
 }, {
     question: "Who is Liz Lemon's mentor?",
     choices: ["Jack Donaghy", "Avery Jessup", "Pete Hornberger", "Hank Hooper"],
-    correctAnswer: [1]
+    correctAnswer: 1
 }, {
     question: "Jenna gains weight while working on what musical?",
     choices: ["The Rural Juror", "Charlie and the Chocolate Factory: The Musical", "Annie", "Mystic Pizza: The Musical"],
-    correctAnswer: [3]
+    correctAnswer: 3
 }, {
     question: "What is the name of the hit party song Tracy has a gold record for?",
     choices: ["Ghost Party", "Bewitched", "Werewolf Bar Mitzvah", "Monster Mash"],
-    correctAnswer: [2]
+    correctAnswer: 2
 }, {
     question: "What town is Kenneth Parcell, the NBC page, from?",
     choices: ["Green Mountain, Georgia", "Stone Mountain, Georgia", "Little Mountain, Mississippi", "Red Mountain, Mississippi"],
-    correctAnswer: [1]
+    correctAnswer: 1
 }, {
     question: "What Sport did NBC not make up during the Olympics to make people believe America won more medals?",
     choices: ["Lawn Bowling", "Octoples Tennis", "Olympic Thetherball", "Synchronized Running"],
-    correctAnswer: [0]
+    correctAnswer: 0
 }, {
     question: "What meal does Lutz instits upon ordering for TGS's last episode?",
     choices: ["Subway", "Gas Station Hot Dogs", "Marshmallows", "Blimpies"],
-    correctAnswer: [3]
+    correctAnswer: 3
 }, {
     question: "Who does Liz Lemon dress up as to get out of jury duty?",
     choices: ["Princess Leia", "Wonder Woman", "Catwoman", "Batman"],
-    correctAnswer:[0]   
+    correctAnswer: 0   
 }];
 
 // countdown functions
@@ -94,48 +100,64 @@ function stop() {
   $("#button4").hide();
   // add here the score stats display in the question div!
   // maybe have a restart function
-    }
+}
+
+function buttonClicked(e){
+  console.log("buttonClicked", e)
+  //get value of button index 
+  var value = $(this).attr("index");
+
+  //compare button index value with questions[questionCounter].correctAnswer
+  if (value == questions[questionCounter].correctAnswer){
+    console.log(value);
+    correctGuess++;
+  }
+
+  else {
+    incorrectGuess++;
+    alert("YOURE WRONG!")
+  }
+
+    questionCounter++;
+
+    //load in new question
+}
 
 
 function displayCurrentQuestion () {
-  // var currentQuestion = questions[currentQuestion].question;
-  // var numChoices = questions[currentQuestion].choices.length;
 
-  for (var i = 0; i < questions.length; i++) {
-    console.log(questions[i].question);
-    $("#question").html(questions[i].question);
-    $("#button1").html(questions[i].choices[0]);
-    $("#button2").html(questions[i].choices[1]);
-    $("#button3").html(questions[i].choices[2]);
-    $("#button4").html(questions[i].choices[3]);
-  }
-  questionCounter++;
+    console.log(questions[questionCounter].question);
+    $("#question").html(questions[questionCounter].question);
+    $("#button1").html(questions[questionCounter].choices[0]);
+    $("#button2").html(questions[questionCounter].choices[1]);
+    $("#button3").html(questions[questionCounter].choices[2]);
+    $("#button4").html(questions[questionCounter].choices[3]);
+
+}
+
+function submitAnswer () {
+  $("#button1").hide();
+  $("#button2").hide();
+  $("#button3").hide();
+  $("#button4").hide();
+
+    var incorrectAnswerDiv = $("<div>");
+    incorrectAnswerDiv.html("Sorry you're wrong!");
+    $("#question").append(incorrectAnswerDiv);
+    incorrectAnswerDiv.attr("class", "answerDisplay");
+
+    var incorrectAnswerDiv = $("<div>");
+    photoDiv.html();
+    $("#question").append(incorrectAnswerDiv);
+    incorrectAnswerDiv.attr("class", "answerDisplay");
+
+    var correctAnswerDiv = $("<div>");
+    correctAnswerDiv.html("Sorry you're wrong!");
+    $("#question").append(correctAnswerDiv);
+    correctAnswerDiv.attr("class", "answerDisplay");
 
 }
 
   
-  var userInput = $(".btn btn-default").val();
-    if (userInput === questions[i].correctAnswer){
-      displayCurrentQuestion();
-      run();
-    }
-  // When using jQuery 3:
-  // var multipleValues = $( "#multiple" ).val();
-  console.log(userInput);
-// }
 
-
-
-
-// if (userguess === questions[i].correctAnswer)
-//   if (questions[i].correctAnswer == choices[i]) {
-//     correctGuess++;
-//     displayCurrentQuestion();
-//     $("submit").click(run);
-//   }
-// }
-
-// if (questionCounter > 10) {
-//   stop();
-// }
 
