@@ -50,7 +50,7 @@ var questions = [{
 }, {
     question: "Who is Liz Lemon's mentor?",
     choices: ["Jack Donaghy", "Avery Jessup", "Pete Hornberger", "Hank Hooper"],
-    correctAnswer: 1,
+    correctAnswer: 0,
     image: "assets/images/jack.jpg"
 }, {
     question: "Jenna gains weight while working on what musical?",
@@ -141,6 +141,7 @@ function displayCurrentQuestion () {
     $("#button2").html(questions[questionCounter].choices[1]);
     $("#button3").html(questions[questionCounter].choices[2]);
     $("#button4").html(questions[questionCounter].choices[3]);
+    $("#nextQuestion").hide();
   }
 }
 
@@ -151,7 +152,6 @@ function submitCorrectAnswer () {
   $("#button2").hide();
   $("#button3").hide();
   $("#button4").hide();
-  // $("#question").hide();
 
     var correctAnswerDiv = $("<div>");
     correctAnswerDiv.html("High Five a Million Angels! You got it right!!");
@@ -171,7 +171,7 @@ function submitIncorrectAnswer () {
   $("#button2").hide();
   $("#button3").hide();
   $("#button4").hide();
-  // $("#question").hide();
+  
 
     var incorrectAnswerDiv = $("<div>");
     incorrectAnswerDiv.html("Blurg! You got it wrong!");
@@ -187,13 +187,12 @@ function submitIncorrectAnswer () {
 
 function nextQuestion () {
   number = 30;
-  // $("#submit").show();
   run();
 }
 
 function stop() {
   clearInterval(startGame);
-  number.hide();
+  // number.hide();
   $("#button1").hide();  
   $("#button2").hide();
   $("#button3").hide();
