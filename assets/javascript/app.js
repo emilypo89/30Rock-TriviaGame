@@ -37,43 +37,53 @@ var questionCounter = 0;
 var questions = [{
     question: "What does TGS stand for?",
     choices: ["That Great Show", "The Girlie Show", "The Green Show", "The Gray Shadow"],
-    correctAnswer: 1
+    correctAnswer: 1,
+    image: "assets/images/theGirlieShow.png"
 }, {
     question: "Who does Liz Lemon end up marrying?",
     choices: ["Criss Cross", "Dennis Duffy", "Carol, the Pilot", "Floyd"],
-    correctAnswer: 0
+    correctAnswer: 0,
+    image: "assets/images/criss.jpg"
 }, {
     question: "Who are the Stars of TGS?",
     choices: ["Frank and Toofer", "Kenneth and Pete", "Jenna Maroney and Tracy Morgan", "Jennifer Maroney and Tracy Jordon"],
-    correctAnswer: 2
+    correctAnswer: 2,
+    image: "assets/images/tracyANDjenna.jpg"
 }, {
     question: "Who is Liz Lemon's mentor?",
     choices: ["Jack Donaghy", "Avery Jessup", "Pete Hornberger", "Hank Hooper"],
-    correctAnswer: 1
+    correctAnswer: 1,
+    image: "assets/images/jack.jpg"
 }, {
     question: "Jenna gains weight while working on what musical?",
     choices: ["The Rural Juror", "Charlie and the Chocolate Factory: The Musical", "Annie", "Mystic Pizza: The Musical"],
-    correctAnswer: 3
+    correctAnswer: 3,
+    image: "assets/images/mysticPizza.png"
 }, {
     question: "What is the name of the hit party song Tracy has a gold record for?",
     choices: ["Ghost Party", "Bewitched", "Werewolf Bar Mitzvah", "Monster Mash"],
-    correctAnswer: 2
+    correctAnswer: 2,
+    image: "assets/images/werewolf.jpg"
 }, {
     question: "What town is Kenneth Parcell, the NBC page, from?",
     choices: ["Green Mountain, Georgia", "Stone Mountain, Georgia", "Little Mountain, Mississippi", "Red Mountain, Mississippi"],
-    correctAnswer: 1
+    correctAnswer: 1,
+    image: "assets/images/kenneth.jpeg"
 }, {
     question: "What Sport did NBC not make up during the Olympics to make people believe America won more medals?",
     choices: ["Lawn Bowling", "Octoples Tennis", "Olympic Tetherball", "Synchronized Running"],
-    correctAnswer: 0
+    correctAnswer: 0,
+    image: "assets/images/tetherball.jpg"
 }, {
     question: "What meal does Lutz instits upon ordering for TGS's last episode?",
     choices: ["Subway", "Gas Station Hot Dogs", "Marshmallows", "Blimpies"],
-    correctAnswer: 3
+    correctAnswer: 3,
+    image: "assets/images/lutz.jpg"
 }, {
     question: "Who does Liz Lemon dress up as to get out of jury duty?",
     choices: ["Princess Leia", "Wonder Woman", "Catwoman", "Batman"],
-    correctAnswer: 0   
+    correctAnswer: 0,
+    image: "assets/images/liz.jpg"   
 }];
 
 // countdown functions
@@ -92,8 +102,8 @@ function decrement() {
   number--;
   $("#show-number").html("<h2>" + number + "</h2>");
   if (number === 0) {
-    stop();
-    alert("Time Up!");
+    clearInterval(startGame);
+    submitIncorrectAnswer();
   }
 }
 
@@ -104,25 +114,26 @@ function buttonClicked(e){
   //compare button index value with questions[questionCounter].correctAnswer
   if (value == questions[questionCounter].correctAnswer){
     correctGuess++;
+    noResponse--;
     clearInterval(startGame);
     submitCorrectAnswer();
   }
 
   else {
     incorrectGuess++;
+    noResponse--;
     clearInterval(startGame);
     submitIncorrectAnswer();
   }
 
+
     questionCounter++;
     console.log(questionCounter);
-
-    //load in new question
 }
 
 
 function displayCurrentQuestion () {
-  if (questionCounter > 10){
+  if (questionCounter >= 10){
     stop();
   }
   else{
@@ -135,27 +146,6 @@ function displayCurrentQuestion () {
   }
 }
 
-function submitIncorrectAnswer () {
-  $("#nextQuestion").show();
-  $("#nextQuestion").html("Next Question");
-  $("#button1").hide();
-  $("#button2").hide();
-  $("#button3").hide();
-  $("#button4").hide();
-  $("#question").hide();
-
-    var incorrectAnswerDiv = $("<div>");
-    incorrectAnswerDiv.html("Sorry, you're wrong!");
-    $("#question").append(incorrectAnswerDiv);
-    incorrectAnswerDiv.attr("class", "answerDisplay");
-
-    // var incorrectAnswerDiv = $("<div>");
-    // photoDiv.html();
-    // $("#questionSheet").append(photoDiv);
-    // incorrectAnswerDiv.attr("class", "photoDisplay");
-
-}
-
 function submitCorrectAnswer () {
   $("#nextQuestion").show();
   $("#nextQuestion").html("Next Question");
@@ -163,17 +153,38 @@ function submitCorrectAnswer () {
   $("#button2").hide();
   $("#button3").hide();
   $("#button4").hide();
-  $("#question").hide();
+  // $("#question").hide();
 
     var correctAnswerDiv = $("<div>");
-    correctAnswerDiv.html("You got it right!!");
+    correctAnswerDiv.html("High Five a Million Angels! You got it right!!");
     $("#question").append(correctAnswerDiv);
     correctAnswerDiv.attr("class", "answerDisplay");
 
-    // var incorrectAnswerDiv = $("<div>");
-    // photoDiv.html();
-    // $("#questionSheet").append(photoDiv);
-    // incorrectAnswerDiv.attr("class", "photoDisplay");
+    var photoDiv = $("<div>");
+    photoDiv.html("<img src=" + questions[questionCounter].image + " width='400px'>");
+    $("#question").append(photoDiv);
+    incorrectAnswerDiv.attr("class", "photoDisplay");
+}
+
+function submitIncorrectAnswer () {
+  $("#nextQuestion").show();
+  $("#nextQuestion").html("Next Question");
+  $("#button1").hide();
+  $("#button2").hide();
+  $("#button3").hide();
+  $("#button4").hide();
+  // $("#question").hide();
+
+    var incorrectAnswerDiv = $("<div>");
+    incorrectAnswerDiv.html("Blurg! You got it wrong!");
+    $("#question").append(incorrectAnswerDiv);
+    incorrectAnswerDiv.attr("class", "answerDisplay");
+
+    var photoDiv = $("<div>");
+    photoDiv.html("<img src=" + questions[questionCounter].image + " width='400px'>");
+    $("#question").append(photoDiv);
+    incorrectAnswerDiv.attr("class", "photoDisplay");
+
 }
 
 function nextQuestion () {
@@ -183,6 +194,7 @@ function nextQuestion () {
 }
 
 function stop() {
+  clearInterval(startGame);
   $("#button1").hide();  
   $("#button2").hide();
   $("#button3").hide();
@@ -195,7 +207,7 @@ function stop() {
   var updateIncorrectGuess = "<p>You got " + incorrectGuess + " answers wrong!</p>";
   var updateNoResponse = "<p>Unanswered questions: " + noResponse + "</p> ";
 
-  $("#scores").html(updateCorrectGuess + updateIncorrectGuess + updateNoResponse);
+  $("#question").html(updateCorrectGuess + updateIncorrectGuess + updateNoResponse);
 
 }
 
