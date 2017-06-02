@@ -29,13 +29,15 @@ h1 {
 #button4,
 #nextQuestion,
 #start {
+	width: 800px;
 	font-size: 30px;
 	text-align: center;
 	background-color: ; 
 	font-family: 'Poppins', sans-serif;
 	margin-bottom: 3%;
 	border: solid 3px red;
-	left: 200px;
+	/*left: 200px;*/
+	/*position: center;*/
 
 }
 
@@ -47,4 +49,15 @@ h1 {
 
 .photoDisplay {
 	left: 20px;
+}
+
+#buttonHolder {
+	margin: 0 auto;
+	/*position: center;*/
+	/*left: 80px;*/
+	right: 120px;
+}
+
+#questSheet {
+	/*margin: 0 auto;*/
 }
