@@ -23,7 +23,7 @@ window.onload = function() {
 
 
 // variables
-var number = 50;
+var number = 30;
 var startGame;
 var displayQuestion = false;
 var correctGuess = 0;
@@ -98,36 +98,41 @@ function decrement() {
 }
 
 function buttonClicked(e){
-  console.log("buttonClicked", e)
   //get value of button index 
   var value = $(this).attr("index");
 
   //compare button index value with questions[questionCounter].correctAnswer
   if (value == questions[questionCounter].correctAnswer){
     correctGuess++;
+    clearInterval(startGame);
     submitCorrectAnswer();
   }
 
   else {
     incorrectGuess++;
+    clearInterval(startGame);
     submitIncorrectAnswer();
   }
 
     questionCounter++;
+    console.log(questionCounter);
 
     //load in new question
 }
 
 
 function displayCurrentQuestion () {
-
+  if (questionCounter > 10){
+    stop();
+  }
+  else{
     console.log(questions[questionCounter].question);
     $("#question").html(questions[questionCounter].question);
     $("#button1").html(questions[questionCounter].choices[0]);
     $("#button2").html(questions[questionCounter].choices[1]);
     $("#button3").html(questions[questionCounter].choices[2]);
     $("#button4").html(questions[questionCounter].choices[3]);
-
+  }
 }
 
 function submitIncorrectAnswer () {
@@ -137,8 +142,7 @@ function submitIncorrectAnswer () {
   $("#button2").hide();
   $("#button3").hide();
   $("#button4").hide();
-  $("#submit").hide();
-  $("#sumbit").hide();
+  $("#question").hide();
 
     var incorrectAnswerDiv = $("<div>");
     incorrectAnswerDiv.html("Sorry, you're wrong!");
@@ -154,12 +158,12 @@ function submitIncorrectAnswer () {
 
 function submitCorrectAnswer () {
   $("#nextQuestion").show();
+  $("#nextQuestion").html("Next Question");
   $("#button1").hide();
   $("#button2").hide();
   $("#button3").hide();
   $("#button4").hide();
-  $("#sumbit").hide();
-
+  $("#question").hide();
 
     var correctAnswerDiv = $("<div>");
     correctAnswerDiv.html("You got it right!!");
@@ -174,12 +178,11 @@ function submitCorrectAnswer () {
 
 function nextQuestion () {
   number = 30;
-  $("#submit").show();
+  // $("#submit").show();
   run();
 }
 
 function stop() {
-  clearInterval(startGame);
   $("#button1").hide();  
   $("#button2").hide();
   $("#button3").hide();
@@ -192,10 +195,8 @@ function stop() {
   var updateIncorrectGuess = "<p>You got " + incorrectGuess + " answers wrong!</p>";
   var updateNoResponse = "<p>Unanswered questions: " + noResponse + "</p> ";
 
-  $("#question").html(updateCorrectGuess + updateIncorrectGuess + updateNoResponse);
+  $("#scores").html(updateCorrectGuess + updateIncorrectGuess + updateNoResponse);
 
 }
 
-if (questionCounter > 10){
-  stop();
-}
+
