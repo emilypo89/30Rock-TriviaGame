@@ -2,7 +2,6 @@
 window.onload = function() {
   $("#start").click(run);
   $("#start").html("Push to Start the Game!")
-  // $("#submit").click(stop);
   $("#nextQuestion").click(nextQuestion);
 
   $("#questionSheet").hide();
@@ -30,7 +29,6 @@ var correctGuess = 0;
 var incorrectGuess = 0;
 var noResponse = 10;
 var currentQuestion = 0;
-// var userInput = event.key;
 var questionCounter = 0;
 
 
@@ -117,6 +115,7 @@ function buttonClicked(e){
     noResponse--;
     clearInterval(startGame);
     submitCorrectAnswer();
+    questionCounter++;
   }
 
   else {
@@ -124,10 +123,9 @@ function buttonClicked(e){
     noResponse--;
     clearInterval(startGame);
     submitIncorrectAnswer();
+    questionCounter++;
   }
 
-
-    questionCounter++;
     console.log(questionCounter);
 }
 
@@ -163,7 +161,7 @@ function submitCorrectAnswer () {
     var photoDiv = $("<div>");
     photoDiv.html("<img src=" + questions[questionCounter].image + " width='400px'>");
     $("#question").append(photoDiv);
-    incorrectAnswerDiv.attr("class", "photoDisplay");
+    photoDiv.attr("class", "photoDisplay");
 }
 
 function submitIncorrectAnswer () {
@@ -183,7 +181,7 @@ function submitIncorrectAnswer () {
     var photoDiv = $("<div>");
     photoDiv.html("<img src=" + questions[questionCounter].image + " width='400px'>");
     $("#question").append(photoDiv);
-    incorrectAnswerDiv.attr("class", "photoDisplay");
+    photoDiv.attr("class", "photoDisplay");
 
 }
 
@@ -195,6 +193,7 @@ function nextQuestion () {
 
 function stop() {
   clearInterval(startGame);
+  number.hide();
   $("#button1").hide();  
   $("#button2").hide();
   $("#button3").hide();
