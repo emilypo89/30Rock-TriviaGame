@@ -2,23 +2,28 @@
 window.onload = function() {
   $("#start").click(run);
   $("#start").html("Push to Start the Game!")
-  $("#submit").click(stop);
+  // $("#submit").click(stop);
+  $("#nextQuestion").click(nextQuestion);
+
   $("#questionSheet").hide();
   $("#button1").hide();
   $("#button2").hide();
   $("#button3").hide();
   $("#button4").hide();
+  $("#nextQuestion").hide();
 
   $("#button1").click(buttonClicked);
   $("#button2").click(buttonClicked);
   $("#button3").click(buttonClicked);
   $("#button4").click(buttonClicked);
 
+  $("#nextQuestion").hide();
+
 };
 
 
 // variables
-var number = 30;
+var number = 50;
 var startGame;
 var displayQuestion = false;
 var correctGuess = 0;
@@ -59,7 +64,7 @@ var questions = [{
     correctAnswer: 1
 }, {
     question: "What Sport did NBC not make up during the Olympics to make people believe America won more medals?",
-    choices: ["Lawn Bowling", "Octoples Tennis", "Olympic Thetherball", "Synchronized Running"],
+    choices: ["Lawn Bowling", "Octoples Tennis", "Olympic Tetherball", "Synchronized Running"],
     correctAnswer: 0
 }, {
     question: "What meal does Lutz instits upon ordering for TGS's last episode?",
@@ -92,16 +97,6 @@ function decrement() {
   }
 }
 
-function stop() {
-  clearInterval(startGame);
-  $("#button1").hide();  
-  $("#button2").hide();
-  $("#button3").hide();
-  $("#button4").hide();
-  // add here the score stats display in the question div!
-  // maybe have a restart function
-}
-
 function buttonClicked(e){
   console.log("buttonClicked", e)
   //get value of button index 
@@ -109,13 +104,13 @@ function buttonClicked(e){
 
   //compare button index value with questions[questionCounter].correctAnswer
   if (value == questions[questionCounter].correctAnswer){
-    console.log(value);
     correctGuess++;
+    submitCorrectAnswer();
   }
 
   else {
     incorrectGuess++;
-    alert("YOURE WRONG!")
+    submitIncorrectAnswer();
   }
 
     questionCounter++;
@@ -135,29 +130,72 @@ function displayCurrentQuestion () {
 
 }
 
-function submitAnswer () {
+function submitIncorrectAnswer () {
+  $("#nextQuestion").show();
+  $("#nextQuestion").html("Next Question");
   $("#button1").hide();
   $("#button2").hide();
   $("#button3").hide();
   $("#button4").hide();
+  $("#submit").hide();
+  $("#sumbit").hide();
 
     var incorrectAnswerDiv = $("<div>");
-    incorrectAnswerDiv.html("Sorry you're wrong!");
+    incorrectAnswerDiv.html("Sorry, you're wrong!");
     $("#question").append(incorrectAnswerDiv);
     incorrectAnswerDiv.attr("class", "answerDisplay");
 
-    var incorrectAnswerDiv = $("<div>");
-    photoDiv.html();
-    $("#question").append(incorrectAnswerDiv);
-    incorrectAnswerDiv.attr("class", "answerDisplay");
-
-    var correctAnswerDiv = $("<div>");
-    correctAnswerDiv.html("Sorry you're wrong!");
-    $("#question").append(correctAnswerDiv);
-    correctAnswerDiv.attr("class", "answerDisplay");
+    // var incorrectAnswerDiv = $("<div>");
+    // photoDiv.html();
+    // $("#questionSheet").append(photoDiv);
+    // incorrectAnswerDiv.attr("class", "photoDisplay");
 
 }
 
-  
+function submitCorrectAnswer () {
+  $("#nextQuestion").show();
+  $("#button1").hide();
+  $("#button2").hide();
+  $("#button3").hide();
+  $("#button4").hide();
+  $("#sumbit").hide();
 
 
+    var correctAnswerDiv = $("<div>");
+    correctAnswerDiv.html("You got it right!!");
+    $("#question").append(correctAnswerDiv);
+    correctAnswerDiv.attr("class", "answerDisplay");
+
+    // var incorrectAnswerDiv = $("<div>");
+    // photoDiv.html();
+    // $("#questionSheet").append(photoDiv);
+    // incorrectAnswerDiv.attr("class", "photoDisplay");
+}
+
+function nextQuestion () {
+  number = 30;
+  $("#submit").show();
+  run();
+}
+
+function stop() {
+  clearInterval(startGame);
+  $("#button1").hide();  
+  $("#button2").hide();
+  $("#button3").hide();
+  $("#button4").hide();
+  $("#start").hide();
+  $("#sumbit").hide();
+  $("#nextQuestion").hide();
+
+  var updateCorrectGuess = "<p>You got " + correctGuess + " answers correct!</p>";
+  var updateIncorrectGuess = "<p>You got " + incorrectGuess + " answers wrong!</p>";
+  var updateNoResponse = "<p>Unanswered questions: " + noResponse + "</p> ";
+
+  $("#question").html(updateCorrectGuess + updateIncorrectGuess + updateNoResponse);
+
+}
+
+if (questionCounter > 10){
+  stop();
+}
