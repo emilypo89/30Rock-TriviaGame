@@ -86,6 +86,7 @@ var questions = [{
 
 // countdown functions
 function run() {
+  reset();
   startGame = setInterval(decrement, 1000);
   $("#start").hide();
   $("#button1").show();
@@ -207,6 +208,19 @@ function stop() {
 
   $("#question").html(updateCorrectGuess + updateIncorrectGuess + updateNoResponse);
 
+  $("#start").show();
+  $("#start").html("Push to Restart the Game!");
+
 }
 
+function reset() {
+  number = 30;
+  startGame;
+  displayQuestion = false;
+  correctGuess = 0;
+  incorrectGuess = 0;
+  noResponse = 10;
+  currentQuestion = 0;
+  questionCounter = 0;
+}
 
