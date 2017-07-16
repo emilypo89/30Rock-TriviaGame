@@ -86,7 +86,7 @@ var questions = [{
 
 // countdown functions
 function run() {
-  reset();
+  // reset();
   startGame = setInterval(decrement, 1000);
   $("#start").hide();
   $("#button1").show();
