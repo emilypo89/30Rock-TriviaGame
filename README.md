@@ -27,5 +27,5 @@ At the end the user is told the number of questions that they got right and wron
 
 ## Languages and Packages Used
 
-This application uses HTML, CSS, Bootstrap, and JavaScript.
+This application uses HTML, CSS, Bootstrap, JavaScript and JQuery.
 
