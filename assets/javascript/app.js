@@ -210,6 +210,8 @@ function stop() {
 
   $("#start").show();
   $("#start").html("Push to Restart the Game!");
+  reset();
+  $("#start").click(run);
 
 }
 
